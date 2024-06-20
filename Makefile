@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -g
 TARGET = writer
 SRC = finder-app/writer.c
 
-.PHONY: all clean
+.PHONY: all clean cross-compile
 
 all: $(TARGET)
 
@@ -17,6 +17,6 @@ clean:
 CROSS_COMPILE ?=
 CC = $(CROSS_COMPILE)gcc
 
-cross-compile: $(TARGET)
-
+cross-compile:
+	$(MAKE) all CROSS_COMPILE=$(CROSS_COMPILE)
 

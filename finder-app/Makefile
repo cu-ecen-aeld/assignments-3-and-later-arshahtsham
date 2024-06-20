@@ -8,7 +8,7 @@ SRC = writer.c
 all: $(TARGET)
 
 $(TARGET): $(SRC)
-    $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
 	rm -f $(TARGET) *.o

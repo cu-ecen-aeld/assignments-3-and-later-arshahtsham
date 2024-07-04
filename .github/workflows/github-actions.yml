@@ -1,5 +1,5 @@
 name: assignment-test
-on: 
+on:
     push:
         tags-ignore:
             - '*'
@@ -12,15 +12,16 @@ jobs:
         steps:
           - uses: actions/checkout@v2
           - name: Checkout submodules
-            run : git submodule update --init --recursive
+            run: git submodule update --init --recursive
           - name: Run unit test
             run: ./unit-test.sh
-    full-test:
-        container: cuaesd/aesd-autotest:assignment2
+    system-call-test:
+        container: cuaesd/aesd-autotest:assignment3-part-1
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v2
           - name: Checkout submodules
-            run : git submodule update --init --recursive
-          - name: Run full test
-            run: ./full-test.sh
+            run: git submodule update --init --recursive
+          - name: Run system call test
+            run: ./unit-test.sh
+

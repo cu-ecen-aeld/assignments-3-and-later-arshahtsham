@@ -1,0 +1,46 @@
+From e33a814e772cdc36436c8c188d8c42d019fda639 Mon Sep 17 00:00:00 2001
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Tue, 9 Jun 2020 19:35:55 +0900
+Subject: [PATCH] dtc: fix the multiple definition of yylloc problem
+
+Kbuild does not like multiple definitions of .
+
+Move  to another file to fix the build error.
+
+Fixes: 0b6da6f87b7c ("kbuild: remove unneeded 'static' storage class specifier from global variables")
+Reported-by: Nathan Chancellor <natechancellor@gmail.com>
+Signed-off-by: Masahiro Yamada <masahiroy@kernel.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+---
+ scripts/dtc/dtc-parser.tab.c_shipped | 2 ++
+ scripts/dtc/dtc.c                    | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/scripts/dtc/dtc-parser.tab.c_shipped b/scripts/dtc/dtc-parser.tab.c_shipped
+index e4e8f59ed0c7..3f4e9cb3e7be 100644
+--- a/scripts/dtc/dtc-parser.tab.c_shipped
++++ b/scripts/dtc/dtc-parser.tab.c_shipped
+@@ -383,6 +383,8 @@ YYSTYPE yylval;
+ /* Location data for the lookahead symbol.  */
+ YYLTYPE yylloc;
+ 
++YYLTYPE yylloc;
++
+ #if defined YYLTYPE_IS_TRIVIAL && YYLTYPE_IS_TRIVIAL
+ /* Reset the location when the start of the initial context */
+ # define YYLLOC_DEFAULT(Current, Rhs, N) diff --git a/scripts/dtc/dtc.c b/scripts/dtc/dtc.c
+index e0095e71d27e..6b8b7fa13f3d 100644
+--- a/scripts/dtc/dtc.c
++++ b/scripts/dtc/dtc.c
+@@ -30,6 +30,8 @@ int optind;
+ int opterr;
+ #endif
+ 
++YYLTYPE yylloc;
++
+ bool treesource_error;
+ 
+ struct check *tree_checks;
+-- 
+2.27.0

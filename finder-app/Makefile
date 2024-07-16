@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -g
 TARGET = writer
 SRC = writer.c
 
-.PHONY: all clean
+.PHONY: all clean cross-compile
 
 all: $(TARGET)
 
@@ -12,4 +12,11 @@ $(TARGET): $(SRC)
 
 clean:
 	rm -f $(TARGET) *.o
+
+# Cross-compilation support
+CROSS_COMPILE ?=
+CC = $(CROSS_COMPILE)gcc
+
+cross-compile:
+	$(MAKE) CC=$(CC) $(TARGET)
 

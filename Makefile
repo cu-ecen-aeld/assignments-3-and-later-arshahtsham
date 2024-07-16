@@ -18,5 +18,5 @@ CROSS_COMPILE ?=
 CC = $(CROSS_COMPILE)gcc
 
 cross-compile:
-	$(MAKE) all CROSS_COMPILE=$(CROSS_COMPILE)
+	$(MAKE) CC=$(CC) $(TARGET)
 
